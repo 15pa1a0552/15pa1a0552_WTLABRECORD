@@ -1,0 +1,117 @@
+//xml dtd
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE EquipmentInfo
+[
+<!ELEMENT EquipmentInfo (equipmentname,type,modelname,serialnumber,description,availability,condition,contactinfo)>
+<!ELEMENT equipmentname (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT modelname (#PCDATA)>
+<!ELEMENT serialnumber (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT availability (#PCDATA)>
+<!ELEMENT condition (#PCDATA)>
+<!ELEMENT contactinfo (name,address,phone,email)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+]>
+//xml
+<EquipmentInfo>
+<equipmentname>projector</equipmentname>
+  <type>3</type>
+  <modelname>sony</modelname>
+  <serialnumber>5</serialnumber>
+  <description>screen</description>
+  <availability>2</availability>
+  <condition>it should be worked</condition>
+  <contactinfo>
+   <name>gayatri</name>
+   <address>gudivada</address>
+   <phone>7661995675</phone>
+   <email>gayatri@gmail.com</email>
+   </contactinfo>
+   </EquipmentInfo>
+   
+   
+// xml schema:
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="EquipmentInfo">
+        <xs:complexType>
+            <xs:sequence>
+				<xs:element name="equipmentname" type="xs:string"></xs:element>
+				<xs:element name="type" type="xs:string"/>
+				<xs:element name="modelname" type="xs:string"/>
+				<xs:element name="serialnumber" type="xs:string"/>
+				<xs:element name="description" type="xs:string"/>
+				<xs:element name="availability" type="xs:decimal"/>
+				<xs:element name="condition" type="xs:string"/>
+				<xs:element name="contactinfo">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name" type="xs:string"/>
+							<xs:element name="address" type="xs:string"/>
+							<xs:element name="phone" type="xs:string"/>
+							<xs:element name="email" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>   
+            </xs:sequence>
+        </xs:complexType>   
+    </xs:element>
+	
+</xs:schema>
+
+//xml xslt
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xsl:stylesheet version="1.0"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+<xsl:template match="/">
+  <html>
+  <body>
+    <h2>EquipmentInfo</h2>
+    <table border="1">
+      <tr bgcolor="#9acd32">
+        <th>equipmentname</th>
+        <th>type</th>
+        <th>modelname</th>
+        <th>serialnumber</th>
+        <th>descripition</th>
+        <th>availability</th>
+        <th>condition</th>
+        <th>name</th>
+        <th>address</th>
+        <th>phone</th>
+        <th>email</th>
+       
+     
+     
+      </tr>
+      <xsl:for-each select="EquipmentInfo">
+        <tr>
+          <td><xsl:value-of select="equipmentname"/></td>
+          <td><xsl:value-of select="type"/></td>
+           <td><xsl:value-of select="modelname"/></td>
+          <td><xsl:value-of select="serialnumber"/></td>
+          <td><xsl:value-of select="description"/></td>
+          <td><xsl:value-of select="availability"/></td>
+           <td><xsl:value-of select="condition"/></td>
+            <xsl:for-each select="contactinfo">
+              <td><xsl:value-of select="name"/></td>
+              <td><xsl:value-of select="address"/></td>
+              <td><xsl:value-of select="phone"/></td>
+              <td><xsl:value-of select="email"/></td>
+             </xsl:for-each>
+
+
+        </tr>
+      </xsl:for-each>
+    </table>
+  </body>
+  </html>
+</xsl:template>
+
+</xsl:stylesheet>
